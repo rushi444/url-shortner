@@ -1,39 +1,33 @@
 import { useState } from 'react'
-import {
-  HStack,
-  InputGroup,
-  InputLeftAddon,
-  Input,
-  Button,
-  Box
-} from '@chakra-ui/react'
+import { HStack, Button, Box } from '@chakra-ui/react'
+import { useForm } from 'react-hook-form'
 
 import { AnimatedSection } from 'components/AnimatedSection'
+import { InputField } from 'components/InputField'
 
 export const UrlForm = () => {
-  const [value, setValue] = useState('')
   const [shortUrl, setShortUrl] = useState<string>()
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const { handleSubmit, control } = useForm({
+    mode: 'onChange'
+  })
+
+  const onSubmit = async (data: { url: string }) => {
     const response = await fetch('/api/shorten', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: `https://${value}` })
+      body: JSON.stringify({ url: `https://${data.url}` })
     })
-    const data = await response.json()
+    const res = await response.json()
     setShortUrl(
-      `${document.location.protocol}//${document.location.host}/${data.short}`
+      `${document.location.protocol}//${document.location.host}/${res.short}`
     )
   }
   return (
     <AnimatedSection delay={0.3}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <HStack>
-          <InputGroup>
-            <InputLeftAddon>https://</InputLeftAddon>
-            <Input value={value} onChange={e => setValue(e.target.value)} />
-          </InputGroup>
+          <InputField name="url" control={control} rules={{ required: true }} />
           <Button type="submit" colorScheme="teal">
             Shorten
           </Button>
