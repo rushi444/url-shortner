@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 import {
-  Container,
   Heading,
   Text,
   Button,
   Input,
   Box,
   HStack,
-  Center
+  Center,
+  Spacer,
+  InputGroup,
+  InputLeftAddon
 } from '@chakra-ui/react'
+
+import { AnimatedSection } from 'components/AnimatedSection'
 
 import type { NextPage } from 'next'
 
@@ -30,27 +34,38 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Center h="100vh">
+    <Center h="100vh" bg="blackAlpha.900">
       <Box>
-        <Heading as="h1">
-          Shorten URLs on{' '}
-          <Text as="span" color="teal.200">
-            the Edge
-          </Text>
-        </Heading>
-        <form onSubmit={onSubmit}>
-          <HStack>
-            <Input value={value} onChange={e => setValue(e.target.value)} />
-            <Button type="submit" colorScheme="teal">
-              Shorten
-            </Button>
-          </HStack>
-        </form>
-        {shortUrl ? (
-          <Box>
-            <a href={shortUrl}>{shortUrl}</a>
+        <AnimatedSection delay={0.1}>
+          <Box textAlign="center" mb={4}>
+            <Heading as="h1">World&apos;s fastest URL shortener </Heading>
+            <Heading as="h1">
+              running on{' '}
+              <Text as="span" color="teal.200">
+                the Edge
+              </Text>
+            </Heading>
           </Box>
-        ) : null}
+        </AnimatedSection>
+        <AnimatedSection delay={0.3}>
+          <form onSubmit={onSubmit}>
+            <HStack>
+              <InputGroup>
+                <InputLeftAddon>https://</InputLeftAddon>
+                <Input value={value} onChange={e => setValue(e.target.value)} />
+              </InputGroup>
+              <Button type="submit" colorScheme="teal">
+                Shorten
+              </Button>
+            </HStack>
+          </form>
+          {shortUrl ? (
+            <Box>
+              <a href={shortUrl}>{shortUrl}</a>
+            </Box>
+          ) : null}{' '}
+        </AnimatedSection>
+        <Spacer h="15rem" />
       </Box>
     </Center>
   )
