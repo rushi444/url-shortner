@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { HStack, Button, Box, Text } from '@chakra-ui/react'
+import { HStack, Button, Text } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -9,7 +9,7 @@ import { addHttps, schema } from './validationSchema'
 import { UrlBox } from './UrlBox'
 
 export const UrlForm = () => {
-  const [shortUrl, setShortUrl] = useState<string>('www.test.com')
+  const [shortUrl, setShortUrl] = useState<string>()
 
   const {
     handleSubmit,
