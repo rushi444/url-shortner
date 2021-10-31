@@ -6,9 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { AnimatedSection } from 'components/AnimatedSection'
 import { InputField } from 'components/InputField'
 import { addHttps, schema } from './validationSchema'
+import { UrlBox } from './UrlBox'
 
 export const UrlForm = () => {
-  const [shortUrl, setShortUrl] = useState<string>()
+  const [shortUrl, setShortUrl] = useState<string>('www.test.com')
 
   const {
     handleSubmit,
@@ -50,11 +51,7 @@ export const UrlForm = () => {
           </Text>
         ) : null}
       </form>
-      {shortUrl ? (
-        <Box>
-          <a href={shortUrl}>{shortUrl}</a>
-        </Box>
-      ) : null}{' '}
+      <UrlBox shortUrl={shortUrl} />
     </AnimatedSection>
   )
 }
