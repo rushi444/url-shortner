@@ -1,16 +1,15 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
+
+import { theme } from 'lib/theme'
 
 import type { AppProps } from 'next/app'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
   )
 }
 
-export default dynamic(() => Promise.resolve(MyApp), {
-  ssr: false
-})
+export default MyApp
