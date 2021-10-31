@@ -1,5 +1,12 @@
 import { FC } from 'react'
-import { Flex, Text, IconButton, Box, useClipboard } from '@chakra-ui/react'
+import {
+  Flex,
+  Text,
+  IconButton,
+  Box,
+  useClipboard,
+  useToast
+} from '@chakra-ui/react'
 import { MdContentCopy } from 'react-icons/md'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { AnimatedSection } from 'components/AnimatedSection'
@@ -10,6 +17,7 @@ type UrlBoxProps = {
 
 export const UrlBox: FC<UrlBoxProps> = ({ shortUrl = '' }) => {
   const { hasCopied, onCopy } = useClipboard(shortUrl)
+  const toast = useToast()
 
   if (!shortUrl) return null
   return (
@@ -39,7 +47,15 @@ export const UrlBox: FC<UrlBoxProps> = ({ shortUrl = '' }) => {
             variant={hasCopied ? 'solid' : 'outline'}
             colorScheme="teal"
             mx={1}
-            onClick={onCopy}
+            onClick={() => {
+              onCopy()
+              toast({
+                title: 'URL copied to clipboard!',
+                status: 'success',
+                duration: 3000,
+                variant: 'subtle'
+              })
+            }}
           />
           <IconButton
             aria-label="open in new tab"
