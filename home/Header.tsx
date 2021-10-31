@@ -10,7 +10,7 @@ export const Header = () => {
         w={{ base: '90vw', md: '70vw', lg: '50vw' }}
       >
         <Heading as="h1">
-          The world&apos;s fastest URL shortener running on{' '}
+          The extremely fast URL shortener running on{' '}
           <Text as="span" color="teal.200">
             the Edge
           </Text>
